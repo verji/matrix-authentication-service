@@ -767,6 +767,36 @@ pub struct PushedAuthorizationResponse {
     pub expires_in: Duration,
 }
 
+/// A request to the [OpenID Connect RP-initiated Logout Endpoint].
+///
+/// An RP requests that the OP log out the End-User by redirecting the
+/// End-User's User Agent to the OP's Logout Endpoint. This URL is normally
+/// obtained via the `end_session_endpoint` element of the OP's Discovery
+/// response or may be learned via other mechanisms.
+///
+/// [OpenID Connect RP-initiated Logout Endpoint]: https://openid.net/specs/openid-connect-rpinitiated-1_0.html
+#[skip_serializing_none]
+#[derive(Serialize, Deserialize, Clone, PartialEq, Eq)]
+pub struct RPInitiatedLogoutRequest {
+    /// ID Token previously issued by the OP to the RP passed to the Logout
+    /// Endpoint as a hint about the End-User's current authenticated session
+    /// with the Client.
+    pub id_token_hint: Option<String>,
+
+    /// Hint to the Authorization Server about the End-User that is logging out.
+    pub logout_hint: Option<String>,
+
+    /// OAuth 2.0 Client Identifier valid at the Authorization Server.
+    pub client_id: Option<String>,
+
+    /// URI to which the RP is requesting that the End-User's User Agent be
+    /// redirected after a logout has been performed.
+    pub post_logout_redirect_uri: Option<String>,
+
+    /// The state to be returned to the client after logout.
+    pub state: Option<String>,
+}
+
 #[cfg(test)]
 mod tests {
     use serde_json::json;

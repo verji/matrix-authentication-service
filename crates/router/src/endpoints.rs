@@ -91,6 +91,14 @@ impl SimpleRoute for OidcUserinfo {
     const PATH: &'static str = "/oauth2/userinfo";
 }
 
+/// `GET /oauth2/end-session`
+#[derive(Default, Debug, Clone)]
+pub struct OidcEndSession;
+
+impl SimpleRoute for OidcEndSession {
+    const PATH: &'static str = "/oauth2/end-session";
+}
+
 /// `POST /oauth2/introspect`
 #[derive(Default, Debug, Clone)]
 pub struct OAuth2Introspection;
